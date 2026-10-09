@@ -1,187 +1,280 @@
 # Toki
 
-[English](#toki) | [中文](#中文) | [Changelog](CHANGELOG.md) | [更新日志](CHANGELOG.md#中文) | [Telegram](https://t.me/toki_lsposed)
+<img src="https://raw.githubusercontent.com/MeiYongAI/Toki/main/docs/assets/toki.svg" align="right" width="96" height="96" alt="Toki icon">
 
-Toki is a libxposed API 102 enhancement module implemented and tested for official TikTok 46.4.3.
-It only targets `com.zhiliaoapp.musically`.
+An LSPosed module that gives you more control over your TikTok experience.
+
+[![Build](https://github.com/MeiYongAI/Toki/actions/workflows/build.yml/badge.svg)](https://github.com/MeiYongAI/Toki/actions/workflows/build.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/MeiYongAI/Toki/blob/main/LICENSE)
+[![Android 9+](https://img.shields.io/badge/Android-9%2B-3DDC84.svg)](#dependencies)
+
+**English** · [简体中文](README.zh-CN.md)
+
+[Download](https://github.com/MeiYongAI/Toki/releases) ·
+[Module repository](https://github.com/Xposed-Modules-Repo/io.github.meiyongai.toki) ·
+[Changelog](https://github.com/MeiYongAI/Toki/blob/main/CHANGELOG.md) ·
+[Report a problem](https://github.com/MeiYongAI/Toki/issues/new/choose) ·
+[Telegram](https://t.me/toki_lsposed)
+
+Toki provides feed filters, playback controls, media tools and region settings
+through a Material 3 interface with 57 language options.
+
+> **AI-generated project.** This module is developed with AI-generated code and
+> may contain errors. Review changes and test carefully before relying on it.
+>
+> **Hide My Applist (HMA):** Do not hide Toki from TikTok. Toki does not provide
+> HMA compatibility support. See [Troubleshooting](#troubleshooting).
+
+## Table of contents
+
+- [Install](#install)
+- [Usage](#usage)
+- [Features](#features)
+- [Troubleshooting](#troubleshooting)
+- [Development](#development)
+- [Contributing](#contributing)
+- [Support](#support)
+- [Disclaimer](#disclaimer)
+- [License](#license)
+
+## Install
+
+### Dependencies
+
+| Requirement | Supported configuration |
+| --- | --- |
+| Android | Android 9 (API 28) or newer |
+| Framework | A working LSPosed installation supporting **libxposed API 102** |
+| TikTok | Official client; adapted versions: **47.1.4**, **47.0.3**, and **46.8.3** |
+| Module scope | `com.zhiliaoapp.musically` or `com.ss.android.ugc.trill` |
+
+Toki supports **official TikTok clients only**. Third-party modified clients,
+including TikTok Central, are not supported or adapted.
+
+Toki requires the framework to apply changes to TikTok. Other TikTok versions
+are outside the documented compatibility scope. Download
+variants can contain different code, so a listed version alone does not
+guarantee that every feature will work.
+
+### Enable the module
+
+1. Download and install the Toki APK from
+   [Releases](https://github.com/MeiYongAI/Toki/releases).
+2. Enable Toki in LSPosed and select your installed TikTok in the module scope.
+3. Open Toki, check the activation status on Home and choose the features you
+   want to enable.
+4. Force-stop TikTok and open it again. If a method-discovery dialog appears,
+   let it finish and dismiss the completion message. Then force-stop TikTok
+   and open it again to apply the saved results.
+
+Verified builds use bundled adaptation results without first-run discovery. Other builds
+run native method discovery and require a restart when it completes.
+
+## Usage
+
+Open Toki to configure features, change the interface language, view feature
+status or import/export settings from Home.
+
+For example, to filter ads, enable ad filtering in the feed settings, restart
+TikTok and check the feature status in Toki after opening TikTok.
+
+- **Restart when prompted.** Newly enabled features, region spoofing, playback
+  speed and immersive layout changes can require a new TikTok session. When
+  Toki indicates that a restart is needed, force-stop TikTok and open it again.
+- **Check feature status.** The status page distinguishes your requested
+  settings from those applied in the current session and reports adaptation
+  failures. Installed filtering and clean-mode features receive configuration
+  updates during the session.
+- **Keep configuration backups.** Export settings before reinstalling or
+  making substantial changes, and import them from Home when needed.
 
 ## Features
 
-- Region and environment spoofing: choose region presets with country codes and carrier
-  information, and independently spoof GPS, system language, and system time zone.
-- Startup login prompt: close the dismissible prompt shown during startup without bypassing
-  login or verification.
-- Download enhancements: remove download restrictions, prefer watermark-free saving for all
-  videos, and set separate save locations for videos, images, and GIFs.
-- Feed filtering: hide ads, livestreams, photo posts, AI-generated content, trending-topic bars,
-  content ratings, and long videos; filter by view or like count.
-- Duet and Stitch: allow restricted content to be used for Duet or Stitch. When looping is
-  disabled, playback pauses at the end and can be replayed with one tap.
-- Playback controls: automatically apply 1.25x to 2.0x to each new video without overriding a
-  manual speed choice, and optionally keep the progress bar visible on videos under 30 seconds.
-- Feed display: optionally show the author's region code with its matching country flag.
-- Comment translation: show Translate and Revert controls in comments and preserve translation
-  state across videos.
-- Page purification: independently hide author avatar and information, descriptions, music,
-  action buttons, navigation, search, LIVE, commercial, creative, movie, anime, and game
-  entrances, feedback surveys, safety warnings, Tako, translation controls, and the system
-  status bar.
-- Count ranges: enter full numbers or compact suffixes such as `20K` and `1.5M` directly.
-- Metric range fields preserve the exact text entered while filtering uses the parsed count.
-- Home dashboard: view LSPosed service and TikTok version status, restart TikTok, clear only its
-  cache with Root, reset Toki settings, and open the project community and issue tracker.
-- Material 3 settings UI with dark mode, dynamic color, and manual Follow System, English, and
-  Chinese language switching.
+| Area | Options |
+| --- | --- |
+| Feed filters | Filter ads across video feeds, including creator profiles. On For You, filter LIVE, photos, AI-labeled videos/photos, topic/creator cards, keywords, authors, duration, views and likes; block offline video insertion. |
+| Layout cleanup | Separate top navigation, bottom navigation and video-page controls, including rewards, activity cards and the stop auto-scroll button, plus opacity settings. |
+| Playback | Custom speeds, automatic clean mode, centered or fullscreen video, background audio unlock, progress-bar options and enhanced auto scroll across video pages. |
+| Media and tools | Prefer watermark-free downloads, set custom save folders, handle audio restrictions, configure translation and copy original or translated comment text. |
+| Region | Spoof SIM/region, language, time zone and location within TikTok; display creator regions. |
+| Management | Feature status, settings import/export, automatic method discovery and 57 interface language options. |
 
-## Requirements
+## Troubleshooting
 
-- Android 8.0 or later
-- An LSPosed implementation that supports libxposed API 102
-- Official TikTok 46.4.3 with package name `com.zhiliaoapp.musically`. Other versions are outside
-  the support scope and receive no version-specific compatibility work or guarantees.
-- The module APK is architecture-independent.
+### How to apply method-discovery results
 
-## Installation
+After discovery succeeds, dismiss the completion message, force-stop TikTok
+and open it again to apply the saved results. If discovery fails, check Toki's
+feature diagnostics and [report the problem](#contributing).
 
-1. Download the APK from [Releases](https://github.com/MeiYongAI/Toki/releases/latest).
-2. Install it, enable Toki in LSPosed, and select the TikTok scope.
-3. Open Home in Toki and tap Restart TikTok after changing settings. Restart TikTok manually when
-   Root access is unavailable.
+### TikTok crashes before the discovery dialog appears
 
-Root is used only when you explicitly choose Restart TikTok or Clear TikTok Cache on Home. Cache
-clearing preserves TikTok accounts, settings, drafts, and app data.
+If you use Hide My Applist (HMA), check whether it hides Toki
+(`io.github.meiyongai.toki`) from TikTok. Logs from the previous implementation
+confirmed a startup crash when the discovery dialog could not find the hidden
+module package. The current source changes the resource-loading path, but the
+affected devices and HMA configuration have not been verified with that change.
 
-Community: [Telegram group](https://t.me/toki_lsposed)
+Remove Toki from the apps hidden from TikTok, or disable HMA's hiding rules for
+TikTok, then force-stop TikTok and reopen it. **Toki does not provide HMA
+compatibility support. Do not hide Toki from TikTok while using the module.**
 
-## Reporting Issues
+If the crash persists, include your HMA version and the LSPosed and crash logs
+from the same launch with your [bug report](#contributing).
 
-- Use the [Bug Report form](https://github.com/MeiYongAI/Toki/issues/new?template=bug_report.yml)
-  for reproducible failures. Include the Toki, TikTok, Android, device, and LSPosed versions,
-  exact reproduction steps, relevant settings, and sanitized LSPosed module logs.
-- Use the [Feature Request form](https://github.com/MeiYongAI/Toki/issues/new?template=feature_request.yml)
-  for concrete improvements based on an actual use case.
-- Use the [Telegram group](https://t.me/toki_lsposed) for general discussion and help identifying
-  a problem before filing it. Do not post account data, tokens, cookies, or unredacted private logs.
+### A setting has no effect
 
-## Privacy
+Check that Toki is enabled, the correct TikTok package is selected in LSPosed
+and the relevant feature is enabled in Toki. Follow any restart instruction on
+the feature status page. If adaptation fails, include the TikTok version and
+download source in your report.
 
-Toki declares no network permissions and contains no analytics, telemetry, remote updates, or
-promotional entry points. Settings are stored only on the device.
+## Development
 
-## Build
+[MeiYongAI/Toki](https://github.com/MeiYongAI/Toki) maintains the source code, issues and releases.
+The [Xposed module repository](https://github.com/Xposed-Modules-Repo/io.github.meiyongai.toki)
+distributes the same signed APK for the module catalog. Maintainers should follow
+the [release synchronization instructions](https://github.com/MeiYongAI/Toki/blob/main/docs/releasing.md) when publishing.
 
-JDK 21, Android SDK Platform 37.0, and Build Tools 37.0.0 are required.
+### Environment
+
+| Component | Version or requirement |
+| --- | --- |
+| IDE | Android Studio, or Android SDK command-line tools |
+| Gradle runtime | JDK 21; Java source/target level is 17 |
+| Android SDK | Platform 37 (`platforms;android-37.0`), Build Tools 37.0.0 |
+| Build plugins | Android Gradle Plugin 9.4.0; Kotlin Compose plugin 2.2.10 |
+| Gradle | 9.7.1, provided by the wrapper |
+| App SDK levels | `compileSdk = 37`, `targetSdk = 35`, `minSdk = 28` |
+
+Dependencies are resolved from Google Maven and Maven Central; Gradle plugins
+also use the Gradle Plugin Portal. Set `JAVA_HOME` or Android Studio's Gradle
+JDK to JDK 21, and configure the SDK through `ANDROID_HOME` or a local
+`local.properties` file. Machine-specific paths stay outside version control.
+
+### Build and test
+
+Clone the repository and install the SDK packages used by CI:
+
+```bash
+git clone https://github.com/MeiYongAI/Toki.git
+cd Toki
+sdkmanager "platforms;android-37.0" "build-tools;37.0.0"
+```
+
+Build a debug APK and run the same verification tasks as
+[CI](https://github.com/MeiYongAI/Toki/blob/main/.github/workflows/build.yml):
+
+```bash
+./gradlew :app:assembleDebug
+./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleRelease
+```
+
+In Windows PowerShell, use:
 
 ```powershell
-.\gradlew.bat testDebugUnitTest lintDebug assembleDebug
+.\gradlew.bat :app:assembleDebug
+.\gradlew.bat :app:testDebugUnitTest :app:lintDebug :app:assembleRelease
 ```
 
-Without signing environment variables, `assembleRelease` produces an unsigned APK. For a signed
-release, set the following variables and run
-`.\gradlew.bat clean testDebugUnitTest lintDebug assembleRelease`:
+For release-specific lint checks, run `:app:lintRelease` with the wrapper.
+Release builds enable R8 and resource shrinking.
+
+| Build | APK output |
+| --- | --- |
+| Debug | `app/build/outputs/apk/debug/app-debug.apk` |
+| Release without signing configuration | `app/build/outputs/apk/release/app-release-unsigned.apk` |
+| Release with signing configuration | `app/build/outputs/apk/release/app-release.apk` |
+
+### Sign a release
+
+Copy [keystore.properties.example](https://github.com/MeiYongAI/Toki/blob/main/keystore/keystore.properties.example) to
+`keystore/keystore.properties`, then supply your own keystore path, alias and
+credentials. Keystore paths are relative to the repository root. Without this
+file, the release APK is unsigned and must be signed before installation.
+
+Keep your keystore and `keystore/keystore.properties` private and backed up.
+Updates to the same installed app require the same signing key. The project's
+published release certificate fingerprint is:
 
 ```text
-TOKI_KEYSTORE_FILE
-TOKI_STORE_PASSWORD
-TOKI_KEY_ALIAS
-TOKI_KEY_PASSWORD
+SHA-256 34:22:83:7D:EA:4C:40:EC:06:1F:8E:59:94:70:51:2E:87:23:4A:28:4B:C8:51:E1:A6:EA:87:3A:9E:DE:5D:32
 ```
 
-## Origin and License
+### Source layout and adaptation
 
-The project originally used the MIT-licensed project structure of
-[TiktokPatchXposed](https://github.com/krolchonok/TiktokPatchXposed). Toki's implementation has
-since been rewritten. This repository contains neither a TikTok APK nor decompiled source code.
+| Path | Purpose |
+| --- | --- |
+| `app/src/main/java/io/github/meiyongai/toki/` | Module entry point, hooks, configuration and Compose UI |
+| `app/src/main/res/` | Android resources and translations |
+| `app/src/main/resources/META-INF/xposed/` | Xposed module entry, API requirements and scope |
+| `app/src/main/resources/toki-host-rules.tsv` | Host-code fingerprint rules |
+| `app/src/test/java/io/github/meiyongai/toki/` | Unit and resource/layout tests |
 
-This project is released under the [MIT License](LICENSE). Licenses for dependencies and build
-tools are listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+<details>
+<summary>Feature installation and method-discovery behavior</summary>
+
+Toki selects features from the startup configuration. When all main features
+are off, it keeps session diagnostics without business hooks or adaptation
+scanning. SIM, language, time zone, GPS, download-path changes, status bar and duration
+alerts do not require symbol scanning; watermark-free downloads require source-selection
+adaptation. Saved progress-bar sub-options and
+region presets do not enable their parent features.
+
+Official host builds use a common set of code fingerprints and member contracts.
+There are no adaptation branches selected by version number or download source.
+Unmatched code is reported as an adaptation failure.
+
+</details>
+
+## Contributing
+
+Use [GitHub Issues](https://github.com/MeiYongAI/Toki/issues/new/choose) for bug
+reports and feature requests, or join the [Telegram group](https://t.me/toki_lsposed)
+for questions and discussion.
+
+For a bug report, include:
+
+- Toki and TikTok versions, plus the TikTok download source.
+- Android version, device model and LSPosed version.
+- Reproduction steps, relevant settings, and expected/actual behavior.
+- Whether method discovery completed, feature status and relevant LSPosed logs.
+  For crashes, include crash logs from the same launch.
+
+Remove personal information before sharing logs or screenshots. Follow the
+issue templates; do not upload TikTok APKs or decompiled host code.
+
+Pull requests are welcome. Describe the problem, resulting behavior and how
+you verified the change. Run unit tests and lint before submitting, update
+both README translations when changing documented behavior, and keep generated
+build files, local SDK paths and signing credentials out of commits.
+
+## Support
+
+If Toki is useful to you, you can support development through
+[Ko-fi](https://ko-fi.com/meiyongai) or
+[Alipay](https://github.com/MeiYongAI/Toki/blob/main/app/src/main/res/drawable-nodpi/alipay.jpg). These options are also
+available in Toki under **Support Toki**. Donations are optional.
+
+<details>
+<summary>USDT · TRC20 / Tron</summary>
+
+`TXoTeZLpbQdn4wZF51858bC3zCwS822HbB`
+
+Use the TRC20 (Tron) network only. Verify the address and network before sending.
+
+</details>
 
 ## Disclaimer
 
-This project is intended only for learning, research, and use on personal devices. It is not
-affiliated with or endorsed by TikTok, ByteDance, or LSPosed. TikTok updates can break
-compatibility; make sure your use complies with local law and the applicable terms of service.
+Toki is an independent project, not affiliated with or endorsed by TikTok or
+ByteDance. It modifies app behavior and is provided **as is**, without warranties
+of compatibility, reliability or account safety. Use it at your own risk and
+follow applicable laws and platform terms. Respect creators' rights; download
+or reuse content only with permission.
 
-## 中文
+## License
 
-Toki 是面向官方 TikTok 46.4.3 实现并完成测试的 libxposed API 102 功能增强模块，仅作用于
-`com.zhiliaoapp.musically`。其他版本不在支持范围内，不提供专门适配或兼容保证。
-
-### 功能
-
-- 地区与环境伪装：选择预设地区（含国家/地区码与运营商信息），可独立伪装 GPS、系统语言和系统时区，并可强制指定地区。
-- 启动登录引导：可关闭启动时可跳过的登录提示，不绕过登录或验证。
-- 下载增强：解除下载限制，所有视频优先使用无水印地址，可分别设置视频、图片和 GIF 保存目录。
-- 信息流过滤：隐藏广告、直播、图文帖、AI 生成内容、热点话题条、内容评级提示和长视频，并按播放量/点赞数过滤。
-- 合拍与拼接：允许受限内容合拍或拼接；关闭循环播放后视频进入暂停状态，单击即可重播。
-- 播放控制：为新视频自动应用 1.25x–2.0x，不覆盖当前视频内手动选择的倍速，并可让短于 30 秒的视频始终显示进度条。
-- 信息显示：可在作者昵称旁显示对应国家/地区旗帜和地区代码。
-- 评论翻译：评论区显示“翻译/还原”按钮，并跨视频保持翻译状态。
-- 页面净化：可分别隐藏作者头像与信息、文案、音乐、互动按钮、导航、搜索、直播、商业推广、
-  创作工具、影视动漫与游戏入口、评价问卷、伤害警告、Tako、翻译控件和手机系统状态栏。
-- 数量范围：支持直接输入完整数字或 `20K`、`1.5M` 等数量后缀。
-- 数据筛选输入会保留用户输入的原始文本，过滤时使用解析后的数值。
-- 首页：查看 LSPosed 服务与 TikTok 版本状态，使用 Root 重启 TikTok 或仅清除其缓存，重置
-  Toki 配置，并打开项目社区和问题反馈页面。
-- Material 3 设置界面，支持深色模式、动态配色，以及跟随系统、English 和中文三种界面语言。
-
-### 环境要求
-
-- Android 8.0 或更高版本
-- 支持 libxposed API 102 的 LSPosed 实现
-- 官方 TikTok 46.4.3，包名 `com.zhiliaoapp.musically`；其他版本不在支持范围内
-- 模块 APK 不区分设备架构
-
-### 安装
-
-1. 从 [Releases](https://github.com/MeiYongAI/Toki/releases/latest) 下载 APK。
-2. 安装后在 LSPosed 中启用 Toki，并勾选 TikTok 作用域。
-3. 修改设置后，可在 Toki 首页点击“重启 TikTok”使设置生效。没有 Root 权限时，请手动重启 TikTok。
-
-只有在首页主动选择“重启 TikTok”或“清除 TikTok 缓存”时才会使用 Root；清除缓存不会删除
-TikTok 账号、设置、草稿或应用数据。
-
-交流：[Telegram 群组](https://t.me/toki_lsposed)
-
-### 问题反馈
-
-- 可稳定复现的异常请使用 [错误报告表单](https://github.com/MeiYongAI/Toki/issues/new?template=bug_report.yml)，
-  并填写 Toki、TikTok、Android、设备和 LSPosed 版本、完整复现步骤、相关设置及已脱敏的模块日志。
-- 有明确使用场景的改进建议请使用 [功能建议表单](https://github.com/MeiYongAI/Toki/issues/new?template=feature_request.yml)。
-- 一般交流或尚未确认的问题可先在 [Telegram 群组](https://t.me/toki_lsposed)讨论。
-  请勿公开账号资料、Token、Cookie 或未经脱敏的私人日志。
-
-### 隐私
-
-模块不声明网络权限，无统计、遥测、远程更新或推广入口，设置仅保存在本机。
-
-### 构建
-
-需要 JDK 21、Android SDK Platform 37.0 与 Build Tools 37.0.0。
-
-```powershell
-.\gradlew.bat testDebugUnitTest lintDebug assembleDebug
-```
-
-未配置签名环境变量时 `assembleRelease` 生成未签名 APK；正式发布需设置以下环境变量后运行
-`.\gradlew.bat clean testDebugUnitTest lintDebug assembleRelease`：
-
-```text
-TOKI_KEYSTORE_FILE
-TOKI_STORE_PASSWORD
-TOKI_KEY_ALIAS
-TOKI_KEY_PASSWORD
-```
-
-### 来源与许可证
-
-项目最初基于 [TiktokPatchXposed](https://github.com/krolchonok/TiktokPatchXposed) 的 MIT
-许可工程结构，现有实现已针对 Toki 重写；仓库不包含 TikTok APK 或反编译源码。
-
-本项目按 [MIT License](LICENSE) 发布，依赖与构建工具许可证见
-[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
-
-### 免责声明
-
-本项目仅供学习、研究和个人设备使用，与 TikTok、ByteDance 及 LSPosed 项目无隶属或认可
-关系。TikTok 版本更新可能导致功能失效，使用前请确认符合当地法律及相关服务条款。
+Copyright © 2026 MeiYongAI. Licensed under the [MIT License](https://github.com/MeiYongAI/Toki/blob/main/LICENSE).
+Dependency credits and licenses are listed in
+[Third-party notices](https://github.com/MeiYongAI/Toki/blob/main/THIRD_PARTY_NOTICES.md).

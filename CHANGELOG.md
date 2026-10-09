@@ -1,5 +1,119 @@
 # Changelog
 
+## 1.0.4 — 2026-10-08
+
+### English
+
+- Faster first setup: verified TikTok builds use bundled adaptation results; other builds use native method discovery.
+- Added Center and Fullscreen video modes. Fullscreen crops suitable portrait videos while keeping landscape videos centered.
+- Expanded layout cleanup and added separate control opacity settings, including the top navigation indicator.
+- Fixed the progress bar disappearing on profile videos in automatic clean mode.
+- Added a Belarus SIM preset and a background audio unlock option; simplified access to the native Captions and translation menu.
+- Refined settings and translations across supported languages.
+
+Update directly from **1.0.1–1.0.3**; the signing key is unchanged. Restart TikTok after updating. If method discovery runs, restart again when it finishes. Official TikTok clients only; subtitle availability still depends on TikTok.
+
+### 中文
+
+- 加快首次适配：已验证的 TikTok 构建直接使用内置适配结果，其他构建使用原生方法查找。
+- 新增「居中」和「全屏沉浸」视频显示选项，适合的竖屏视频可裁切铺满，横屏视频保持居中。
+- 扩展页面布局净化，新增分区域控件透明度设置，覆盖顶部导航指示条。
+- 修复作者主页视频在播放清屏时无法保留进度条的问题。
+- 新增白俄罗斯 SIM 预设和后台音频解锁选项，简化原生「字幕和翻译」入口解锁。
+- 精简设置文案，完善多语言适配。
+
+可直接覆盖升级 **1.0.1–1.0.3**，沿用原签名。更新后重启 TikTok；如触发方法查找，完成后再次重启。目前仅支持官方版 TikTok，字幕是否可用仍由 TikTok 决定。
+
+
+## 1.0.3 — 2026-10-04
+
+### English
+
+- Added layout cleanup with separate top navigation, bottom navigation and video-page controls, including the stop auto-scroll button.
+- Enhanced native auto scroll across video pages, including profile and Following feeds.
+- Reuse valid method-discovery results after module updates; only new or changed rules are scanned when TikTok is unchanged.
+- Fixed missing seek-time numbers and visual search tags in automatic clean mode.
+- Updated translations and kept module settings accessible through LSPosed when the launcher icon is hidden.
+
+Update directly from **1.0.1 / 1.0.2**; the signing key is unchanged. Restart TikTok after updating and again if method discovery runs. Official TikTok clients only.
+
+### 中文
+
+- 新增页面布局净化，顶栏、底栏、视频页面独立设置，支持隐藏停止连播按钮。
+- 增强原生自动连播，支持作者主页、关注页等视频页面。
+- 优化方法缓存复用：TikTok 未更新时，模块更新仅补查新增或变化的规则。
+- 修复自动净屏时拖动时间数字不显示、暂停后“搜同款”标签不出现的问题。
+- 完善多语言文案，隐藏桌面图标后仍可从 LSPosed 打开模块设置。
+
+可直接覆盖升级 **1.0.1 / 1.0.2**，沿用原签名。更新后重启 TikTok，如触发方法查找，完成后再次重启。目前仅支持官方版 TikTok。
+
+## 1.0.2 — 2026-10-04
+
+### English
+
+- Added official TikTok **47.1.4** support and improved adaptation across **47.0.3** and **46.8.3**.
+- Improved method discovery reliability and speed, including download, filtering, playback speed, comment copying, author region and auto-scroll adaptation.
+- Fixed the video description translation unlock interfering with translation availability.
+- Improved immersive layout and centered photo posts while preserving their aspect ratio.
+- Fixed controls remaining invisible after pausing in automatic clean mode.
+
+Update directly from **1.0.1**; the signing key is unchanged. Restart TikTok after updating and again after method discovery completes. Official TikTok clients only.
+
+### 中文
+
+- 新增官方 TikTok **47.1.4** 适配，完善 **47.0.3**、**46.8.3** 多版本适配。
+- 提升方法查找稳定性与速度，完善下载、过滤、倍速、评论复制、作者地区及自动滚动适配。
+- 修复视频内容翻译解锁影响翻译可用性的问题。
+- 优化全屏沉浸，图文保持比例居中显示。
+- 修复自动净屏暂停后部分控件仍不可见的问题。
+
+可直接覆盖升级 **1.0.1**，沿用原签名。更新后重启 TikTok，方法查找完成后再次重启。目前仅支持官方版 TikTok。
+
+## 1.0.1 — 2026-10-03
+
+### 中文
+
+- 修复 TikTok 47.0.3 部分视频无水印下载生成 0 字节 `null.mp4` 的问题：在官方下载选源阶段使用同一视频的有效播放源，保留官方文件名、下载进度和保存流程。
+- 状态栏隐藏支持直播观看页，并在返回前台、恢复窗口焦点和配置变化时保持生效。
+- 优化方法查找窗口的留白，并修复开始查找时进度条短暂显示满格的问题。
+- 按启用功能安装 Hook 和查找所需方法，统一代码指纹匹配，并串行化适配缓存读写、校验提交结果。
+- 包名为 `io.github.meiyongai.toki`，版本码为 `2`。
+- **本版使用新正式签名，不能直接覆盖安装原签名的 1.0.0。请先导出 Toki 配置，再卸载旧版、安装本版、导入配置，并在 LSPosed 中确认启用及作用域后重启 TikTok。仅卸载 Toki，不需要卸载 TikTok。**
+- 无水印下载和直播状态栏隐藏已通过用户实机复测。直播顶部黑色留白保持宿主布局。
+
+### English
+
+- Fixed zero-byte `null.mp4` downloads on TikTok 47.0.3 by resolving a valid playback source during native watermark-free source selection. Native naming, progress and saving remain in use.
+- Added status-bar hiding on live viewing pages, including resume, window focus and configuration changes.
+- Reduced excess spacing in method discovery and fixed the initial full-progress flash.
+- Install hooks and discover methods according to enabled features, use shared code fingerprints, and serialize adaptation-cache access with commit verification.
+- Package: `io.github.meiyongai.toki`; version code: `2`.
+- **This release uses a new signing certificate and cannot update the original signed 1.0.0 in place. Export Toki settings, uninstall Toki, install this release, import settings, confirm LSPosed activation and scope, then restart TikTok. Do not uninstall TikTok.**
+- Download and live status-bar fixes were verified on-device by the user. The live page's top black spacing remains unchanged.
+
+## 1.0.0 — 2026-09-30
+
+### English
+
+- New module identity: `io.github.meiyongai.toki`, version code `1`, with a new release signing certificate. This installs separately from `com.seepd.toki`; disable the 0.x module in LSPosed before enabling 1.0.0. Settings are not migrated automatically.
+- Independent rewrite: the entire 1.0.0 source tree is new code and no longer contains the 0.x `com.seepd.toki` sources.
+- TikTok 47.0.3 and 46.8.3 adaptation, with method discovery and persistent results keyed to the host code and rules.
+- Feed filters for topic and creator recommendation cards, keywords, duration, counts, offline insertion and AI-labeled videos or photos. Ad filtering also covers creator-profile video lists; other content rules remain limited to For You.
+- Playback and clean-mode controls, progress-bar handling, translation and original/translated comment copying.
+- Material 3 interface with 57 language options, feature status, configuration import/export and donation-image saving.
+- Local validation: 252 unit tests passed; lint reported 0 errors and 28 warnings. Release builds use R8 and resource shrinking. The latest profile-ad changes still need device verification.
+
+### 中文
+
+- 新模块包名为 `io.github.meiyongai.toki`，版本号 `1`，使用新的正式签名。与 `com.seepd.toki` 分开安装；请先在 LSPosed 中停用 0.x 模块，再启用 1.0.0，配置不会自动迁移。
+- 独立重写：1.0.0 的全部源码均为新代码，不再包含 0.x `com.seepd.toki` 的源文件。
+- 适配 TikTok 47.0.3、46.8.3，支持方法查找，并按宿主代码与规则标识持久保存结果。
+- 信息流过滤涵盖话题及创作者推荐卡片、关键词、时长、数量范围、离线插入，以及标记为 AI 生成的视频和照片。广告过滤扩展到作者主页的视频列表，其他内容规则仍只作用于推荐页。
+- 完善播放清屏、进度条处理、翻译与评论原文／译文复制。
+- Material 3 界面提供 57 种语言选项、功能状态查看、配置导入导出及赞助图片保存。
+- 本地验证：252 项单元测试通过，Lint 0 错误、28 警告；Release 启用 R8 与资源压缩。最新作者主页广告过滤调整仍待实机验证。
+
+
 [English](#changelog) | [中文](#中文)
 
 ## 0.4.23
